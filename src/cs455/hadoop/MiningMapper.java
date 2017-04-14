@@ -170,7 +170,7 @@ public class MiningMapper extends Mapper <LongWritable, Text, Text, RawDataWrita
                 room3 = Integer.parseInt(line.substring((2407 - 1), (2416 - 1))); room4 = Integer.parseInt(line.substring((2416 - 1), (2425 - 1))); 
                 room5 = Integer.parseInt(line.substring((2425 - 1), (2434 - 1))); room6 = Integer.parseInt(line.substring((2434 - 1), (2443 - 1))); 
                 room7 = Integer.parseInt(line.substring((2443 - 1), (2452 - 1))); room8 = Integer.parseInt(line.substring((2452 - 1), (2461 - 1)));
-                room9 = Integer.parseInt(line.substring((2461 - 1), (2570 - 1)));
+                room9 = Integer.parseInt(line.substring((2461 - 1), (2470 - 1)));
 
                 ownLess15000 = Integer.parseInt(line.substring((2929 - 1), (2938 - 1))); own15000to19999 = Integer.parseInt(line.substring((2938 - 1), (2947 - 1))); 
                 own20000to24999 = Integer.parseInt(line.substring((2947 - 1), (2956 - 1))); own25000to29999 = Integer.parseInt(line.substring((2956 - 1), (2965 - 1)));
