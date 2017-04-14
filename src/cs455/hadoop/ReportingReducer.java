@@ -25,7 +25,6 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
             throws IOException, InterruptedException{
 
         float maxValue = Float.MIN_VALUE;
-        int stateCount = 0;
         List<Float> aveRooms = new ArrayList<Float>();
 
         for (StateDataWritable value : values) {
@@ -36,11 +35,11 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
                 mostElderlyState = kk;
             }
             aveRooms.add(value.aveRooms);
-            stateCount++;
         }
 
         Collections.sort(aveRooms);
-        int roomIndex = (int) Math.ceil((double) stateCount * (0.95));
+        int roomIndex = (int) Math.ceil((double) aveRooms.size() * (0.95));
+
         aveRooms95Perc = aveRooms.get(roomIndex);
 
         ReportingWritable answ = new ReportingWritable (statesData, aveRooms95Perc, mostElderlyState);
