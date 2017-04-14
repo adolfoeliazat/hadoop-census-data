@@ -44,6 +44,7 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
         aveRooms95Perc = aveRooms.get(roomIndex);
 
         ReportingWritable answ = new ReportingWritable (statesData, aveRooms95Perc, mostElderlyState);
+        context.write(new Text("USA"), answ);
 
 
     }

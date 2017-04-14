@@ -1,6 +1,7 @@
 package cs455.hadoop;
 
 import cs455.utils.RawDataWritable;
+import cs455.utils.ReportingWritable;
 import cs455.utils.StateDataWritable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -27,18 +28,17 @@ public class ReportingJob {
             job.setJarByClass(ReportingJob.class);
             // Mapper
             job.setMapperClass(ReportingMapper.class);
-            job.setNumReduceTasks(0);
 
-            // Reducer
-            // job.setReducerClass(MiningReducer.class);
-            // Outputs from the Mapper.
+            //Reducer
+            job.setReducerClass(ReportingReducer.class);
+            //Outputs from the Mapper.
             job.setMapOutputKeyClass(Text.class);
-            job.setMapOutputValueClass(Text.class);
+            job.setMapOutputValueClass(StateDataWritable.class);
             // Outputs from Reducer. It is sufficient to set only the following two properties
             // if the Mapper and Reducer has same key and value types. It is set separately for
             // elaboration.
-//            job.setOutputKeyClass(Text.class);
-//            job.setOutputValueClass(StateDataWritable.class);
+            job.setOutputKeyClass(Text.class);
+            job.setOutputValueClass(ReportingWritable.class);
             // path to input in HDFS
             FileInputFormat.addInputPath(job, new Path(args[0]));
             // path to output in HDFS
