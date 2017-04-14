@@ -5,7 +5,7 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
+//import java.util.LinkedHashMap;
 
 /**
  * Created by eloza on 4/12/17.
@@ -22,17 +22,17 @@ public class MiningMapper extends Mapper <LongWritable, Text, Text, RawDataWrita
     private int renterOccupied = 0;
 
 
-    //------ Lists of Info
-    private LinkedHashMap<String, Integer> maritalStatusMale = new LinkedHashMap<>();
-    private LinkedHashMap<String, Integer> maritalStatusFemale = new LinkedHashMap<>();
-
-    private LinkedHashMap<String, Integer> ageDemographics = new LinkedHashMap<>();
-    private LinkedHashMap<String, Integer> ageHispanicMale = new LinkedHashMap<>();
-    private LinkedHashMap<String, Integer> ageHispanicFemale = new LinkedHashMap<>();
-
-    private LinkedHashMap<String, Integer> rooms = new LinkedHashMap<>();
-    private LinkedHashMap<String, Integer> urbanVRural = new LinkedHashMap<>();
-    private LinkedHashMap<String, Integer> ownValue = new LinkedHashMap<>();
+//    //------ Lists of Info
+//    private LinkedHashMap<String, Integer> maritalStatusMale = new LinkedHashMap<>();
+//    private LinkedHashMap<String, Integer> maritalStatusFemale = new LinkedHashMap<>();
+//
+//    private LinkedHashMap<String, Integer> ageDemographics = new LinkedHashMap<>();
+//    private LinkedHashMap<String, Integer> ageHispanicMale = new LinkedHashMap<>();
+//    private LinkedHashMap<String, Integer> ageHispanicFemale = new LinkedHashMap<>();
+//
+//    private LinkedHashMap<String, Integer> rooms = new LinkedHashMap<>();
+//    private LinkedHashMap<String, Integer> urbanVRural = new LinkedHashMap<>();
+//    private LinkedHashMap<String, Integer> ownValue = new LinkedHashMap<>();
     
     //-------Initialized List Values
     private int neverMarriedMale = 0; private int marriedMale = 0; private int separatedMale = 0; private int widowedMale = 0;
