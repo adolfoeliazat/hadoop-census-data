@@ -6,6 +6,7 @@ import org.apache.hadoop.io.WritableUtils;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -23,22 +24,33 @@ public class RawDataWritable implements Writable {
     public int ownerOccupied=0;
     public int renterOccupied=0;
 
+    
 
     //------ Lists of Info
-    public LinkedHashMap<String, Integer> maritalStatusMale = new LinkedHashMap<>();
-    public LinkedHashMap<String, Integer> maritalStatusFemale = new LinkedHashMap<>();
+    public int[] maritalStatusMale = new int[4];
+    public int[] maritalStatusFemale = new int[4];
 
-    public LinkedHashMap<String, Integer> ageDemographics = new LinkedHashMap<>();
-    public LinkedHashMap<String, Integer> ageHispanicMale = new LinkedHashMap<>();
-    public LinkedHashMap<String, Integer> ageHispanicFemale = new LinkedHashMap<>();
+    public int[] ageDemographics = new int[31];
+    public int[] ageHispanicMale = new int[31];
+    public int[] ageHispanicFemale = new int[31];
 
-    public LinkedHashMap<String, Integer> rooms = new LinkedHashMap<>();
-    public LinkedHashMap<String, Integer> urbanVRural = new LinkedHashMap<>();
-    public LinkedHashMap<String, Integer> ownValue = new LinkedHashMap<>();
-    public LinkedHashMap<String, Integer> rentContract = new LinkedHashMap<>();
+    public int[] rooms = new int[9];
+    public int[] urbanVRural = new int[4];
+    public int[] ownValue = new int[20];
+    public int[] rentContract = new int[16];
 
 
-    public RawDataWritable() {}
+    public RawDataWritable() {
+        Arrays.fill(maritalStatusMale, 0);
+        Arrays.fill(maritalStatusFemale, 0);
+        Arrays.fill(ageDemographics, 0);
+        Arrays.fill(ageHispanicMale, 0);
+        Arrays.fill(ageHispanicFemale, 0);
+        Arrays.fill(rooms, 0);
+        Arrays.fill(urbanVRural, 0);
+        Arrays.fill(ownValue, 0);
+        Arrays.fill(rentContract, 0);
+    }
 
     public RawDataWritable(int population, int popInsideUrban, int popOutsideUrban, int popMale, int popFemale,
                            int ownerOccupied, int renterOccupied,
@@ -71,71 +83,73 @@ public class RawDataWritable implements Writable {
         this.population = population; this.popInsideUrban = popInsideUrban; this.popOutsideUrban = popOutsideUrban;
         this.popMale = popMale; this.popFemale = popFemale; this.ownerOccupied = ownerOccupied; this.renterOccupied = renterOccupied;
 
-        maritalStatusMale.put("Never Married Male", neverMarriedMale); maritalStatusMale.put("Married Male", marriedMale);
-        maritalStatusMale.put("Separated Male", separatedMale); maritalStatusMale.put("Widowed Male", widowedMale);
+        maritalStatusMale[0] = neverMarriedMale; maritalStatusMale[1] = marriedMale;
+        maritalStatusMale[2] = separatedMale; maritalStatusMale[3] = widowedMale;
 
-        maritalStatusFemale.put("Never Married Female", neverMarriedFemale); maritalStatusFemale.put("Married Female", marriedFemale);
-        maritalStatusFemale.put("Separated Female", separatedFemale); maritalStatusFemale.put("Widowed Female", widowedFemale);
+        maritalStatusFemale[0] = neverMarriedFemale; maritalStatusFemale[1] = marriedFemale;
+        maritalStatusFemale[2] = separatedFemale; maritalStatusFemale[3] = widowedFemale;
 
-        ageDemographics.put("Under 1", aUnder1); ageDemographics.put("1 and 2", a1and2); ageDemographics.put("3 and 4", a3and4);
-        ageDemographics.put("5", a5); ageDemographics.put("6", a6); ageDemographics.put("7 to 9", a7to9); ageDemographics.put("10 and 11", a10and11);
-        ageDemographics.put("12 and 13", a12and13); ageDemographics.put("14", a14); ageDemographics.put("15", a15);
-        ageDemographics.put("16", a16); ageDemographics.put("17", a17); ageDemographics.put("18", a18); ageDemographics.put("19", a19);
-        ageDemographics.put("20", a20); ageDemographics.put("21", a21); ageDemographics.put("22 to 24", a22to24); ageDemographics.put("25 to 29", a25to29);
-        ageDemographics.put("30 to 34", a30to34); ageDemographics.put("35 to 39", a35to39); ageDemographics.put("40 to 44", a40to44);
-        ageDemographics.put("45 to 49", a45to49); ageDemographics.put("50 to 54", a50to54); ageDemographics.put("55 to 59", a55to59);
-        ageDemographics.put("60 and 64", a60and61); ageDemographics.put("62 to 64", a62to64); ageDemographics.put("65 to 69", a65to69);
-        ageDemographics.put("70 to 74", a70to74); ageDemographics.put("75 to 79", a75to79); ageDemographics.put("80 to 84", a80to84);
-        ageDemographics.put("85 and Up", a85andUp);
+        ageDemographics[0] = aUnder1; ageDemographics[1] = a1and2; ageDemographics[2] = a3and4;
+        ageDemographics[3] = a5; ageDemographics[4] = a6; ageDemographics[5] = a7to9; ageDemographics[6] = a10and11;
+        ageDemographics[7] = a12and13; ageDemographics[8] = a14; ageDemographics[9] = a15;
+        ageDemographics[10] = a16; ageDemographics[11] = a17; ageDemographics[12] = a18; ageDemographics[13] = a19;
+        ageDemographics[14] = a20; ageDemographics[15] = a21; ageDemographics[16] = a22to24; ageDemographics[17] = a25to29;
+        ageDemographics[18] = a30to34; ageDemographics[19] = a35to39; ageDemographics[20] = a40to44;
+        ageDemographics[21] = a45to49; ageDemographics[22] = a50to54; ageDemographics[23] = a55to59;
+        ageDemographics[24] = a60and61; ageDemographics[25] = a62to64; ageDemographics[26] = a65to69;
+        ageDemographics[27] = a70to74; ageDemographics[28] = a75to79; ageDemographics[29] = a80to84;
+        ageDemographics[30] = a85andUp;
 
-        ageHispanicMale.put("Under 1", hMUnder1); ageHispanicMale.put("1 and 2", hM1and2); ageHispanicMale.put("3 and 4", hM3and4);
-        ageHispanicMale.put("5", hM5); ageHispanicMale.put("6", hM6); ageHispanicMale.put("7 to 9", hM7to9); ageHispanicMale.put("10 and 11", hM10and11);
-        ageHispanicMale.put("12 and 13", hM12and13); ageHispanicMale.put("14", hM14); ageHispanicMale.put("15", hM15);
-        ageHispanicMale.put("16", hM16); ageHispanicMale.put("17", hM17); ageHispanicMale.put("18", hM18); ageHispanicMale.put("19", hM19);
-        ageHispanicMale.put("20", hM20); ageHispanicMale.put("21", hM21); ageHispanicMale.put("22 to 24", hM22to24); ageHispanicMale.put("25 to 29", hM25to29);
-        ageHispanicMale.put("30 to 34", hM30to34); ageHispanicMale.put("35 to 39", hM35to39); ageHispanicMale.put("40 to 44", hM40to44);
-        ageHispanicMale.put("45 to 49", hM45to49); ageHispanicMale.put("50 to 54", hM50to54); ageHispanicMale.put("55 to 59", hM55to59);
-        ageHispanicMale.put("60 and 64", hM60and61); ageHispanicMale.put("62 to 64", hM62to64); ageHispanicMale.put("65 to 69", hM65to69);
-        ageHispanicMale.put("70 to 74", hM70to74); ageHispanicMale.put("75 to 79", hM75to79); ageHispanicMale.put("80 to 84", hM80to84);
-        ageHispanicMale.put("85 and Up", hM85andUp);
+        ageHispanicMale[0] = hMUnder1; ageHispanicMale[1] = hM1and2; ageHispanicMale[2] = hM3and4;
+        ageHispanicMale[3] = hM5; ageHispanicMale[4] = hM6; ageHispanicMale[5] = hM7to9; ageHispanicMale[6] = hM10and11;
+        ageHispanicMale[7] = hM12and13; ageHispanicMale[8] = hM14; ageHispanicMale[9] = hM15;
+        ageHispanicMale[10] = hM16; ageHispanicMale[11] = hM17; ageHispanicMale[12] = hM18; ageHispanicMale[13] = hM19;
+        ageHispanicMale[14] = hM20; ageHispanicMale[15] = hM21; ageHispanicMale[16] = hM22to24; ageHispanicMale[17] = hM25to29;
+        ageHispanicMale[18] = hM30to34; ageHispanicMale[19] = hM35to39; ageHispanicMale[20] = hM40to44;
+        ageHispanicMale[21] = hM45to49; ageHispanicMale[22] = hM50to54; ageHispanicMale[23] = hM55to59;
+        ageHispanicMale[24] = hM60and61; ageHispanicMale[25] = hM62to64; ageHispanicMale[26] = hM65to69;
+        ageHispanicMale[27] = hM70to74; ageHispanicMale[28] = hM75to79; ageHispanicMale[29] = hM80to84;
+        ageHispanicMale[30] = hM85andUp;
 
-        ageHispanicFemale.put("Under 1", hFUnder1); ageHispanicFemale.put("1 and 2", hF1and2); ageHispanicFemale.put("3 and 4", hF3and4);
-        ageHispanicFemale.put("5", hF5); ageHispanicFemale.put("6", hF6); ageHispanicFemale.put("7 to 9", hF7to9); ageHispanicFemale.put("10 and 11", hF10and11);
-        ageHispanicFemale.put("12 and 13", hF12and13); ageHispanicFemale.put("14", hF14); ageHispanicFemale.put("15", hF15);
-        ageHispanicFemale.put("16", hF16); ageHispanicFemale.put("17", hF17); ageHispanicFemale.put("18", hF18); ageHispanicFemale.put("19", hF19);
-        ageHispanicFemale.put("20", hF20); ageHispanicFemale.put("21", hF21); ageHispanicFemale.put("22 to 24", hF22to24); ageHispanicFemale.put("25 to 29", hF25to29);
-        ageHispanicFemale.put("30 to 34", hF30to34); ageHispanicFemale.put("35 to 39", hF35to39); ageHispanicFemale.put("40 to 44", hF40to44);
-        ageHispanicFemale.put("45 to 49", hF45to49); ageHispanicFemale.put("50 to 54", hF50to54); ageHispanicFemale.put("55 to 59", hF55to59);
-        ageHispanicFemale.put("60 and 64", hF60and61); ageHispanicFemale.put("62 to 64", hF62to64); ageHispanicFemale.put("65 to 69", hF65to69);
-        ageHispanicFemale.put("70 to 74", hF70to74); ageHispanicFemale.put("75 to 79", hF75to79); ageHispanicFemale.put("80 to 84", hF80to84);
-        ageHispanicFemale.put("85 and Up", hF85andUp);
+        ageHispanicFemale[0] = hFUnder1; ageHispanicFemale[1] = hF1and2; ageHispanicFemale[2] = hF3and4;
+        ageHispanicFemale[3] = hF5; ageHispanicFemale[4] = hF6; ageHispanicFemale[5] = hF7to9; ageHispanicFemale[6] = hF10and11;
+        ageHispanicFemale[7] = hF12and13; ageHispanicFemale[8] = hF14; ageHispanicFemale[9] = hF15;
+        ageHispanicFemale[10] = hF16; ageHispanicFemale[11] = hF17; ageHispanicFemale[12] = hF18; ageHispanicFemale[13] = hF19;
+        ageHispanicFemale[14] = hF20; ageHispanicFemale[15] = hF21; ageHispanicFemale[16] = hF22to24; ageHispanicFemale[17] = hF25to29;
+        ageHispanicFemale[18] = hF30to34; ageHispanicFemale[19] = hF35to39; ageHispanicFemale[20] = hF40to44;
+        ageHispanicFemale[21] = hF45to49; ageHispanicFemale[22] = hF50to54; ageHispanicFemale[23] = hF55to59;
+        ageHispanicFemale[24] = hF60and61; ageHispanicFemale[25] = hF62to64; ageHispanicFemale[26] = hF65to69;
+        ageHispanicFemale[27] = hF70to74; ageHispanicFemale[28] = hF75to79; ageHispanicFemale[29] = hF80to84;
+        ageHispanicFemale[30] = hF85andUp;
+        
 
-        rooms.put("1 Room", room1); rooms.put("2 Rooms", room2); rooms.put("3 Rooms", room3); rooms.put("4 Rooms", room4);
-        rooms.put("5 Rooms", room5); rooms.put("6 Rooms", room6); rooms.put("7 Rooms", room7); rooms.put("8 Rooms", room8);
-        rooms.put("9 Rooms", room9);
 
-        urbanVRural.put("Inside Urban Area", insideUrban); urbanVRural.put("Outside Urban Area", outsideUrban);
-        urbanVRural.put("Rural Area", rural); urbanVRural.put("Not Defined in File", nDefined);
+        rooms[0] = room1; rooms[1] = room2; rooms[2] = room3; rooms[3] = room4;
+        rooms[4] = room5; rooms[5] = room6; rooms[6] = room7; rooms[7] = room8;
+        rooms[8] = room9;
 
-        ownValue.put("Less than $15,000", ownLess15000); ownValue.put("$15,000 to $19,999", own15000to19999);
-        ownValue.put("$20,000 to $24,999", own20000to24999); ownValue.put("$25,000 to $29,999", own25000to29999);
-        ownValue.put("$30,000 to $34,999", own30000to34999); ownValue.put("35,0000 to $39,999", own35000to39999);
-        ownValue.put("$40,000 to $44,999", own40000to44999); ownValue.put("$45,000 to $49,999", own45000to49999);
-        ownValue.put("$50,000 to $59,999", own50000to59999); ownValue.put("$60,000 to $74,999", own60000to74999);
-        ownValue.put("$75,000 to $99,999", own75000to99999); ownValue.put("$100,000 to $124,999", own100000to124999);
-        ownValue.put("$125,000 to $149,999", own125000to149999); ownValue.put("$150,000 to $174,999", own150000to174999);
-        ownValue.put("$175,000 to $199,999", own175000to199999); ownValue.put("$200,000 to $249,999", own200000to249999);
-        ownValue.put("$250,000 to $299,999", own250000to299999); ownValue.put("$300,000 to $399,999", own300000to399999);
-        ownValue.put("$400,000 to $499,999", own400000to499999); ownValue.put("$500,000 and Over", own500000andUp);
+        urbanVRural[0] = insideUrban; urbanVRural[1] = outsideUrban;
+        urbanVRural[2] = rural; urbanVRural[3] = nDefined;
 
-        rentContract.put("Under $100", rentUnder100); rentContract.put("$100 to $149", rent100to149);
-        rentContract.put("$150 to $199", rent150to199); rentContract.put("$200 to $249", rent200to249);
-        rentContract.put("$250 to $299", rent250to299); rentContract.put("$300 to $349", rent300to349);
-        rentContract.put("$350 to $399", rent350to399); rentContract.put("$400 to $449", rent400to449);
-        rentContract.put("$450 to $499", rent450to499); rentContract.put("$500 to $549", rent500to549);
-        rentContract.put("$550 to $599", rent550to599); rentContract.put("$600 to $649", rent600to649);
-        rentContract.put("$650 to $699", rent650to699); rentContract.put("$700 to $749", rent700to749);
-        rentContract.put("$750 to $799", rent750to999); rentContract.put("$1,000 and Above", rent1000andUp);
+        ownValue[0] = ownLess15000; ownValue[1] = own15000to19999;
+        ownValue[2] = own20000to24999; ownValue[3] = own25000to29999;
+        ownValue[4] = own30000to34999; ownValue[5] = own35000to39999;
+        ownValue[6] =  own40000to44999; ownValue[7] =own45000to49999;
+        ownValue[8] = own50000to59999; ownValue[9] = own60000to74999;
+        ownValue[10] = own75000to99999; ownValue[11] = own100000to124999;
+        ownValue[12] = own125000to149999; ownValue[13] = own150000to174999;
+        ownValue[14] = own175000to199999; ownValue[15] = own200000to249999;
+        ownValue[16] = own250000to299999; ownValue[17] = own300000to399999;
+        ownValue[18] = own400000to499999; ownValue[19] = own500000andUp;
+
+        rentContract[0] = rentUnder100; rentContract[1] = rent100to149;
+        rentContract[2] = rent150to199; rentContract[3] = rent200to249;
+        rentContract[4] = rent250to299; rentContract[5] = rent300to349;
+        rentContract[6] = rent350to399; rentContract[7] = rent400to449;
+        rentContract[8] = rent450to499; rentContract[9] = rent500to549;
+        rentContract[10] = rent550to599; rentContract[11] = rent600to649;
+        rentContract[12] = rent650to699; rentContract[13] = rent700to749;
+        rentContract[14] = rent750to999; rentContract[15] = rent1000andUp;
 
     }
 
@@ -147,40 +161,40 @@ public class RawDataWritable implements Writable {
         out.writeInt(population); out.writeInt(popInsideUrban); out.writeInt(popOutsideUrban);
         out.writeInt(popMale); out.writeInt(popFemale); out.writeInt(ownerOccupied); out.writeInt(renterOccupied);
 
-        for(Map.Entry<String, Integer> entry : maritalStatusMale.entrySet()){
-            WritableUtils.writeString(out, entry.getKey()); out.writeInt(entry.getValue());
+        for(int x : maritalStatusMale){
+            out.writeInt(x);
         }
 
-        for(Map.Entry<String, Integer> entry : maritalStatusFemale.entrySet()){
-            WritableUtils.writeString(out, entry.getKey()); out.writeInt(entry.getValue());
+        for(int x : maritalStatusFemale){
+            out.writeInt(x);
         }
 
-        for(Map.Entry<String, Integer> entry : ageDemographics.entrySet()){
-            WritableUtils.writeString(out, entry.getKey()); out.writeInt(entry.getValue());
+        for(int x : ageDemographics){
+            out.writeInt(x);
         }
 
-        for(Map.Entry<String, Integer> entry : ageHispanicMale.entrySet()){
-            WritableUtils.writeString(out, entry.getKey()); out.writeInt(entry.getValue());
+        for(int x : ageHispanicMale){
+            out.writeInt(x);
         }
 
-        for(Map.Entry<String, Integer> entry : ageHispanicFemale.entrySet()){
-            WritableUtils.writeString(out, entry.getKey()); out.writeInt(entry.getValue());
+        for(int x : ageHispanicFemale){
+            out.writeInt(x);
         }
 
-        for(Map.Entry<String, Integer> entry : rooms.entrySet()){
-            WritableUtils.writeString(out, entry.getKey()); out.writeInt(entry.getValue());
+        for(int x : rooms){
+            out.writeInt(x);
         }
 
-        for(Map.Entry<String, Integer> entry : urbanVRural.entrySet()){
-            WritableUtils.writeString(out, entry.getKey()); out.writeInt(entry.getValue());
+        for(int x : urbanVRural){
+            out.writeInt(x);
         }
 
-        for(Map.Entry<String, Integer> entry : ownValue.entrySet()){
-            WritableUtils.writeString(out, entry.getKey()); out.writeInt(entry.getValue());
+        for(int x: ownValue){
+            out.writeInt(x);
         }
 
-        for(Map.Entry<String, Integer> entry : rentContract.entrySet()){
-            WritableUtils.writeString(out, entry.getKey()); out.writeInt(entry.getValue());
+        for(int x: rentContract){
+            out.writeInt(x);
         }
     }
 
@@ -188,30 +202,22 @@ public class RawDataWritable implements Writable {
     public void readFields(DataInput in) throws IOException {
         population = in.readInt(); popInsideUrban = in.readInt(); popOutsideUrban = in.readInt();
         popMale = in.readInt(); popFemale = in.readInt(); ownerOccupied = in.readInt(); renterOccupied = in.readInt();
-
-        maritalStatusMale.clear(); maritalStatusFemale.clear(); ageDemographics.clear(); ageHispanicMale.clear();
-        ageHispanicFemale.clear(); rooms.clear(); urbanVRural.clear(); ownValue.clear(); rentContract.clear();
-
-
-        readMap(maritalStatusMale, 4, in);
-        readMap(maritalStatusFemale, 4, in);
-        readMap(ageDemographics, 31, in);
-        readMap(ageHispanicMale, 31, in);
-        readMap(ageHispanicFemale, 31, in);
-        readMap(rooms, 9, in);
-        readMap(urbanVRural, 4, in);
-        readMap(ownValue, 20, in);
-        readMap(rentContract, 16, in);
+        
+        readMap(maritalStatusMale, in);
+        readMap(maritalStatusFemale, in);
+        readMap(ageDemographics, in);
+        readMap(ageHispanicMale, in);
+        readMap(ageHispanicFemale, in);
+        readMap(rooms, in);
+        readMap(urbanVRural, in);
+        readMap(ownValue, in);
+        readMap(rentContract, in);
 
     }
 
-    private void readMap(Map map, int iterations, DataInput in) throws IOException {
-        int i = 0;
-
-        while(i < iterations){
-            String kk = WritableUtils.readString(in); Integer vv = in.readInt();
-            maritalStatusMale.put(kk, vv);
-            i++;
+    private void readMap(int[] arr, DataInput in) throws IOException {
+        for(int i = 0; i < arr.length; i++){
+            arr[i] = in.readInt();
         }
     }
 
@@ -228,48 +234,48 @@ public class RawDataWritable implements Writable {
         sb.append("Number of Houses Occupied by Renter: " + renterOccupied + "\n");
 
         sb.append("Male Marital Status:" + "\n");
-        for(Map.Entry<String, Integer> entry : maritalStatusMale.entrySet()){
-            sb.append("\t" + entry.getKey() + ": " + entry.getValue() + "\n");
+        for(int x : maritalStatusMale){
+            sb.append("\t" + x + "\n");
         }
 
         sb.append("Female Marital Status:" + "\n");
-        for(Map.Entry<String, Integer> entry : maritalStatusFemale.entrySet()){
-            sb.append("\t" + entry.getKey() + ": " + entry.getValue() + "\n");
+        for(int x : maritalStatusFemale){
+            sb.append("\t" + x + "\n");
         }
 
         sb.append("Age Demographics:" + "\n");
-        for(Map.Entry<String, Integer> entry : ageDemographics.entrySet()){
-            sb.append("\t" + entry.getKey() + ": " + entry.getValue() + "\n");
+        for(int x : ageDemographics){
+            sb.append("\t" + x + "\n");
         }
 
         sb.append("Male Age Hispanic Demographics:" + "\n");
-        for(Map.Entry<String, Integer> entry : ageHispanicMale.entrySet()){
-            sb.append("\t" + entry.getKey() + ": " + entry.getValue() + "\n");
+        for(int x : ageHispanicMale){
+            sb.append("\t" + x + "\n");
         }
 
         sb.append("Female Age Hispanic Demographics:" + "\n");
-        for(Map.Entry<String, Integer> entry : ageHispanicFemale.entrySet()){
-            sb.append("\t" + entry.getKey() + ": " + entry.getValue() + "\n");
+        for(int x : ageHispanicFemale){
+            sb.append("\t" + x + "\n");
         }
 
         sb.append("Rooms per House:" + "\n");
-        for(Map.Entry<String, Integer> entry : rooms.entrySet()){
-            sb.append("\t" + entry.getKey() + ": " + entry.getValue() + "\n");
+        for(int x : rooms){
+            sb.append("\t" + x + "\n");
         }
 
         sb.append("Urban vs. Rural Housing Demographics:"  + "\n");
-        for(Map.Entry<String, Integer> entry : urbanVRural.entrySet()){
-            sb.append("\t" + entry.getKey() + ": " + entry.getValue() + "\n");
+        for(int x : urbanVRural){
+            sb.append("\t" + x + "\n");
         }
 
         sb.append("Value of Owned House:"  + "\n");
-        for(Map.Entry<String, Integer> entry : ownValue.entrySet()){
-            sb.append("\t" + entry.getKey() + ": " + entry.getValue() + "\n");
+        for(int x: ownValue){
+            sb.append("\t" + x + "\n");
         }
 
         sb.append("Rent Contract:" + "\n");
-        for(Map.Entry<String, Integer> entry : rentContract.entrySet()){
-            sb.append("\t" + entry.getKey() + ": " + entry.getValue() + "\n");
+        for(int x: rentContract){
+            sb.append("\t" + x + "\n");
         }
 
         return sb.toString();
@@ -280,50 +286,42 @@ public class RawDataWritable implements Writable {
         this.population += other.population; this.popInsideUrban += other.popInsideUrban; this.popOutsideUrban += other.popOutsideUrban;
         this.popMale += other.popMale; this.popFemale += other.popFemale; this.ownerOccupied += other.ownerOccupied;
         this.renterOccupied += other.renterOccupied;
+        
 
-        for(Map.Entry<String, Integer> entry : maritalStatusMale.entrySet()){
-            String key = entry.getKey();
-            entry.setValue(entry.getValue() + other.maritalStatusMale.get(key));
+        for(int i = 0; i < maritalStatusMale.length; i++){
+            maritalStatusMale[i] += other.maritalStatusMale[i];
         }
 
-        for(Map.Entry<String, Integer> entry : maritalStatusFemale.entrySet()){
-            String key = entry.getKey();
-            entry.setValue(entry.getValue() + other.maritalStatusFemale.get(key));
+        for(int i = 0; i < maritalStatusFemale.length; i++){
+            maritalStatusFemale[i] += other.maritalStatusFemale[i];
         }
 
-        for(Map.Entry<String, Integer> entry : ageDemographics.entrySet()){
-            String key = entry.getKey();
-            entry.setValue(entry.getValue() + other.ageDemographics.get(key));
+        for(int i = 0; i < ageDemographics.length; i++){
+            ageDemographics[i] += other.ageDemographics[i];
         }
 
-        for(Map.Entry<String, Integer> entry : ageHispanicMale.entrySet()){
-            String key = entry.getKey();
-            entry.setValue(entry.getValue() + other.ageHispanicMale.get(key));
+        for(int i = 0; i < ageHispanicMale.length; i++){
+            ageHispanicMale[i] += other.ageHispanicMale[i];
         }
 
-        for(Map.Entry<String, Integer> entry : ageHispanicFemale.entrySet()){
-            String key = entry.getKey();
-            entry.setValue(entry.getValue() + other.ageHispanicFemale.get(key));
+        for(int i = 0; i < ageHispanicFemale.length; i++){
+            ageHispanicFemale[i] += other.ageHispanicFemale[i];
         }
 
-        for(Map.Entry<String, Integer> entry : rooms.entrySet()){
-            String key = entry.getKey();
-            entry.setValue(entry.getValue() + other.rooms.get(key));
+        for(int i = 0; i < rooms.length; i++){
+            rooms[i] += other.rooms[i];
         }
 
-        for(Map.Entry<String, Integer> entry : urbanVRural.entrySet()){
-            String key = entry.getKey();
-            entry.setValue(entry.getValue() + other.rooms.get(key));
+        for(int i = 0; i < urbanVRural.length; i++){
+            urbanVRural[i] += other.rooms[i];
         }
 
-        for(Map.Entry<String, Integer> entry : ownValue.entrySet()){
-            String key = entry.getKey();
-            entry.setValue(entry.getValue() + other.ownValue.get(key));
+        for(int i = 0; i < ownValue.length; i++){
+            ownValue[i] += other.ownValue[i];
         }
 
-        for(Map.Entry<String, Integer> entry : rentContract.entrySet()){
-            String key = entry.getKey();
-            entry.setValue(entry.getValue() + other.rentContract.get(key));
+        for(int i = 0; i < rentContract.length; i++){
+            rentContract[i] += other.rentContract[i];
         }
     }
 

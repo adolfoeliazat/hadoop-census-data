@@ -98,7 +98,6 @@ public class MiningReducer extends Reducer <Text, RawDataWritable, Text, StateDa
     public void reduce(Text key, Iterable<RawDataWritable> values, Context context)
             throws IOException, InterruptedException {
 
-        int maxValue = Integer.MIN_VALUE;
         for (RawDataWritable value : values) {
             stats.merge(value);
         }
@@ -106,8 +105,8 @@ public class MiningReducer extends Reducer <Text, RawDataWritable, Text, StateDa
         float[] q2Answers = question2();
         float[] q3Answers = question3();
         float[] q4Answers = question4();
-        String q5Answer = question5_6(stats.ownValue);
-        String q6Answer = question5_6(stats.rentContract);
+        String q5Answer = question5_6(stats.ownValue, 5);
+        String q6Answer = question5_6(stats.rentContract, 6);
         float q7answer = question7();
         float q8answer = question8();
 
@@ -127,13 +126,16 @@ public class MiningReducer extends Reducer <Text, RawDataWritable, Text, StateDa
 
     private float[] question2(){
         float[] q2Answers = new float[2];
-        float totalMarriedMale = (stats.maritalStatusMale.get("Married Male") + stats.maritalStatusMale.get("Separated Male")+
-                stats.maritalStatusMale.get("Widowed Male") + stats.maritalStatusMale.get("Never Married Male"));
-        float totalMarriedFemale = (stats.maritalStatusFemale.get("Married Female") + stats.maritalStatusFemale.get("Separated Female")+
-                stats.maritalStatusFemale.get("Widowed Female") + stats.maritalStatusFemale.get("Never Married Female"));
-
-        q2Answers[0] = ((float) stats.maritalStatusMale.get("Never Married Male") / totalMarriedMale) * 100;
-        q2Answers[1] = ((float) stats.maritalStatusFemale.get("Never Married Female") / totalMarriedFemale) * 100;
+        int totalMarriedMale = 0;
+        int totalMarriedFemale = 0;
+        for(int x : stats.maritalStatusMale){
+            totalMarriedMale += x;
+        }
+        for(int x : stats.maritalStatusFemale){
+            totalMarriedFemale += x;
+        }
+        q2Answers[0] = ((float) stats.maritalStatusMale[0]/ totalMarriedMale) * 100;
+        q2Answers[1] = ((float) stats.maritalStatusFemale[0] / totalMarriedFemale) * 100;
         return q2Answers;
     }
 
@@ -156,32 +158,72 @@ public class MiningReducer extends Reducer <Text, RawDataWritable, Text, StateDa
 
     private float[] question4(){
         float[] q4Answers = new float[2];
-        int urban = stats.urbanVRural.get("Inside Urban Area") + stats.urbanVRural.get("Outside Urban Area");
-        int rural = stats.urbanVRural.get("Rural Area");
-        int total = urban+ rural +stats.urbanVRural.get("Not Defined in File");
+        int urban = stats.urbanVRural[0] + stats.urbanVRural[1];
+        int rural = stats.urbanVRural[2];
+        int total = urban+ rural +stats.urbanVRural[3];
 
         q4Answers[0] = ((float) urban / total) * 100;
         q4Answers[1] = ((float) rural/ total) * 100;
         return q4Answers;
     }
 
-    private String question5_6(Map<String, Integer> listMap){
+    private String question5_6(int[] arr, int question){
         int totalHouses = 0;
         int indexCount = 0;
         String medianValue = "NULL";
-        for(Map.Entry<String, Integer> entry : listMap.entrySet()){
-            totalHouses += entry.getValue();
+        for(int x : arr){
+            totalHouses += x;
         }
-        int medianIndex = (int) Math.ceil((float) totalHouses / 2);
+        int medianIndex = (int) (Math.ceil((float) totalHouses / 2));
 
-        for(Map.Entry<String, Integer> entry : listMap.entrySet()){
-            indexCount += entry.getValue();
+        int i = 0;
+        for(int x: arr){
+            indexCount += x;
             if (indexCount > medianIndex){
-                medianValue = entry.getKey();
+                medianValue = ownAndRentIndexLables(question, i);
                 break;
             }
+            i++;
         }
         return medianValue;
+    }
+    
+    private String ownAndRentIndexLables(int question, int ind){
+        String[] oV = new String[20];
+        String[] rC = new String[16];
+        String answ;
+        oV[0] = "ownLess15000"; oV[1] = "own15000to19999";
+        oV[2] = "own20000to24999"; oV[3] = "own25000to29999";
+        oV[4] = "own30000to34999"; oV[5] = "own35000to39999";
+        oV[6] =  "own40000to44999"; oV[7] = "own45000to49999";
+        oV[8] = "own50000to59999"; oV[9] = "own60000to74999";
+        oV[10] = "own75000to99999"; oV[11] = "own100000to124999";
+        oV[12] = "own125000to149999"; oV[13] = "own150000to174999";
+        oV[14] = "own175000to199999"; oV[15] = "own200000to249999";
+        oV[16] = "own250000to299999"; oV[17] = "own300000to399999";
+        oV[18] = "own400000to499999"; oV[19] = "own500000andUp";
+
+        rC[0] = "rentUnder100"; rC[1] = "rent100to149";
+        rC[2] = "rent150to199"; rC[3] = "rent200to249";
+        rC[4] = "rent250to299"; rC[5] = "rent300to349";
+        rC[6] = "rent350to399"; rC[7] = "rent400to449";
+        rC[8] = "rent450to499"; rC[9] = "rent500to549";
+        rC[10] = "rent550to599"; rC[11] = "rent600to649";
+        rC[12] = "rent650to699"; rC[13] = "rent700to749";
+        rC[14] = "rent750to999"; rC[15] = "rent1000andUp";
+        
+        
+        if(question == 5){
+            answ = oV[ind];
+        }
+        else if(question == 6){
+            answ = rC[ind];
+        }
+        else{
+            answ = "NULL";
+        }
+
+        return answ;
     }
 
     private float question7(){
@@ -190,38 +232,37 @@ public class MiningReducer extends Reducer <Text, RawDataWritable, Text, StateDa
         int total = 0;
         int numRooms = 1;
 
-        for(Map.Entry<String, Integer> entry : stats.rooms.entrySet()){
-            total += entry.getValue();
-            sumTotal += (numRooms * entry.getValue());
+        for(int x : stats.rooms){
+            total += x;
+            sumTotal += (numRooms * x);
         }
 
         return (float) sumTotal / total;
     }
 
     private float question8(){
-        float q7answers;
-        return (float) stats.ageDemographics.get("85 and Up") / stats.population;
+        return ((float) stats.ageDemographics[30] / stats.population) * 100;
     }
 
 
 
 
-    private int[] getHispanicTotals(Map<String, Integer> listMap){
+    private int[] getHispanicTotals(int[] arr){
         int[] totals = new int[3];
         int hUnder18 = 0;
         int h19to29 = 0;
         int h30to39 = 0;
         int hCounter = 0;
 
-        for(Map.Entry<String, Integer> entry : listMap.entrySet()){
+        for(int x : arr){
             if (hCounter < 13){
-                hUnder18 += entry.getValue();
+                hUnder18 += x;
             }
             else if (hCounter < 18){
-                h19to29 += entry.getValue();
+                h19to29 += x;
             }
             else if (hCounter < 20){
-                h30to39 += entry.getValue();
+                h30to39 += x;
             }
             else {
                 break;

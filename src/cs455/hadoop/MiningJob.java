@@ -26,7 +26,7 @@ public class MiningJob {
             // Mapper
             job.setMapperClass(MiningMapper.class);
             // Combiner. We use the reducer as the combiner in this case.
-            //job.setCombinerClass(MiningCombiner.class);
+            job.setCombinerClass(MiningCombiner.class);
             // Reducer
             job.setReducerClass(MiningReducer.class);
             // Outputs from the Mapper.
