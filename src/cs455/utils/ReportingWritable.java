@@ -13,14 +13,14 @@ import java.util.Map;
  * Created by eloza on 4/14/17.
  */
 public class ReportingWritable implements Writable{
-    Map<String, StateData> statesData = new LinkedHashMap<>();
+    Map<String, StateDataWritable> statesData = new LinkedHashMap<>();
     float aveRooms95Perc = 0;
     String mostElderlyState = "NULL";
 
 
     public ReportingWritable(){}
 
-    public ReportingWritable (Map<String, StateData> statesData, float aveRooms95Perc, String mostElderlyState) {
+    public ReportingWritable (Map<String, StateDataWritable> statesData, float aveRooms95Perc, String mostElderlyState) {
         this.statesData = statesData;
         this.aveRooms95Perc = aveRooms95Perc;
         this. mostElderlyState = mostElderlyState;
@@ -32,7 +32,7 @@ public class ReportingWritable implements Writable{
         out.writeFloat(aveRooms95Perc);
         WritableUtils.writeString(out, mostElderlyState);
         out.writeInt(statesData.size());
-        for(Map.Entry<String, StateData> entry : statesData.entrySet()){
+        for(Map.Entry<String, StateDataWritable> entry : statesData.entrySet()){
             WritableUtils.writeString(out, entry.getKey());
             entry.getValue().write(out);
         }
@@ -70,7 +70,7 @@ public class ReportingWritable implements Writable{
             medianRentContract = WritableUtils.readString(in);
             aveRooms = in.readFloat();
             percentElderly = in.readFloat();
-            StateData statD = new StateData (rentVOwned, marriedVNmarried, hispanicAge, ruralVUrban, medianOwnValue,
+            StateDataWritable statD = new StateDataWritable(rentVOwned, marriedVNmarried, hispanicAge, ruralVUrban, medianOwnValue,
                     medianRentContract, aveRooms, percentElderly);
             statesData.put(state, statD);
             si--;
@@ -84,7 +84,7 @@ public class ReportingWritable implements Writable{
         sb.append("95th Percentile of Average Number of Rooms in Houses: " + aveRooms95Perc + "\n");
         sb.append("\tState with Highest Number of Elderly People: " + mostElderlyState + "\n");
 
-        for(Map.Entry<String, StateData> entry: statesData.entrySet()){
+        for(Map.Entry<String, StateDataWritable> entry: statesData.entrySet()){
             sb.append("\t" + entry.getKey() + "\n");
             entry.getValue().toString(sb);
         }

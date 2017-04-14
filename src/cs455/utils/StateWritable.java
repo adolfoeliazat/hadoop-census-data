@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by eloza on 4/14/17.
  */
-public class StateData {
+public class StateWritable {
     float[] rentVOwned = new float[2];
     float[] marriedVNmarried = new float[2];
     float[] hispanicAge = new float[6];
@@ -19,10 +19,10 @@ public class StateData {
     float aveRooms = 0;
     float percentElderly = 0;
 
-    public StateData(){}
+    public StateWritable(){}
 
-    public StateData (float[] rentVOwned, float[] marriedVNmarried, float[] hispanicAge, float[] ruralVUrban,
-                              String medianOwnValue, String medianRentContract, float aveRooms, float percentElderly) {
+    public StateWritable(float[] rentVOwned, float[] marriedVNmarried, float[] hispanicAge, float[] ruralVUrban,
+                         String medianOwnValue, String medianRentContract, float aveRooms, float percentElderly) {
 
         this.rentVOwned[0] = rentVOwned[0]; this.rentVOwned[1] = rentVOwned[1];
 

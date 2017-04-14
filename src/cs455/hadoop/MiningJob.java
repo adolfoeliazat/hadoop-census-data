@@ -20,7 +20,7 @@ public class MiningJob {
         try {
             Configuration conf = new Configuration();
             // Give the MapRed job a name. You'll see this name in the Yarn webapp.
-            Job job = Job.getInstance(conf, "StateData");
+            Job job = Job.getInstance(conf, "StateWritable");
             // Current class.
             job.setJarByClass(MiningJob.class);
             // Mapper

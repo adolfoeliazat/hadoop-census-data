@@ -1,0 +1,53 @@
+package cs455.hadoop;
+
+import cs455.utils.ReportingWritable;
+import cs455.utils.StateDataWritable;
+import cs455.utils.StateWritable;
+
+import cs455.utils.RawDataWritable;
+import cs455.utils.StateDataWritable;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapreduce.*;
+
+import java.io.IOException;
+import java.util.*;
+
+/**
+ * Created by eloza on 4/14/17.
+ */
+public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, ReportingWritable>{
+
+    Map<String, StateDataWritable> statesData = new LinkedHashMap<>();
+    float aveRooms95Perc = 0;
+    String mostElderlyState = "NULL";
+
+    public void reduce (Text key, Iterable<StateDataWritable> values, Context context)
+            throws IOException, InterruptedException{
+
+        float maxValue = Float.MIN_VALUE;
+        int stateCount = 0;
+        List<Float> aveRooms = new ArrayList<Float>();
+
+        for (StateDataWritable value : values) {
+            String kk = key.toString();
+            statesData.put(kk, value);
+            if (value.percentElderly > maxValue){
+                maxValue = value.percentElderly;
+                mostElderlyState = kk;
+            }
+            aveRooms.add(value.aveRooms);
+            stateCount++;
+        }
+
+        Collections.sort(aveRooms);
+        int roomIndex = (int) Math.ceil((double) stateCount * (0.95));
+        aveRooms95Perc = aveRooms.get(roomIndex);
+
+        ReportingWritable answ = new ReportingWritable (statesData, aveRooms95Perc, mostElderlyState);
+
+
+    }
+
+
+
+}
