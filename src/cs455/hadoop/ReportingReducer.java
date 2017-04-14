@@ -54,48 +54,21 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
         List<Float> aveRooms = new ArrayList<Float>();
 
         for (StateDataWritable value : values) {
-            System.out.println("THE VALUEIS:==================:");
-            System.out.println(value.toString());
             String kk = value.state;
             StateDataWritable tempThing = new StateDataWritable(value.rentVOwned, value.marriedVNmarried, value.hispanicAge, value.ruralVUrban,
                     value.medianOwnValue, value.medianRentContract, value.aveRooms, value.percentElderly, value.state);
-            System.out.println(kk);
-            System.out.println(value.toString());
-            System.out.println("Before");
-            StringBuilder sb2 = new StringBuilder();
-            for (Map.Entry<String,StateDataWritable> entry : statesData.entrySet()){
-                sb2.append("The Key is: " + entry.getKey() + "\n");
-                sb2.append("The State is: " + entry.getValue().state + "\n");
-            }
-            System.out.println(sb2.toString());
 
             statesData.put(kk, tempThing);
-            StringBuilder sb1 = new StringBuilder();
-            for (Map.Entry<String,StateDataWritable> entry : statesData.entrySet()){
-                sb1.append("The Key is: " + entry.getKey() + "\n");
-                sb1.append("The State is: " + entry.getValue().state + "\n");
-            }
-            System.out.println(sb1.toString());
             if (value.percentElderly > maxValue){
                 maxValue = value.percentElderly;
                 mostElderlyState = kk;
             }
             aveRooms.add(value.aveRooms);
-            System.out.println(statesData.get(kk).toString());
         }
 
-        System.out.println("WE ARE GETTIN To the bootm===========");
-        StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String,StateDataWritable> entry : statesData.entrySet()){
-            sb.append("The Key is: " + entry.getKey() + "\n");
-            sb.append("The State is: " + entry.getValue().state + "\n");
-        }
-        System.out.println(sb.toString());
 
         Collections.sort(aveRooms);
         int roomIndex = (int) Math.ceil((double) aveRooms.size() * (0.95));
-        System.out.println("ROOM INDEX: " +roomIndex);
-        System.out.println("AVE ROOM SIZE: " + aveRooms.size());
         aveRooms95Perc = aveRooms.get(roomIndex - 1);
 
         ReportingWritable answ = new ReportingWritable (statesData, aveRooms95Perc, mostElderlyState);
