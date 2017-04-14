@@ -87,7 +87,6 @@ public class ReportingWritable implements Writable{
 
         for(Map.Entry<String, StateDataWritable> entry: statesData.entrySet()){
             sb.append("\t" + entry.getKey() + "\n");
-            sb.append("\t" + entry.getValue().state + "\n");
             entry.getValue().toString(sb);
         }
 
