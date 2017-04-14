@@ -235,6 +235,7 @@ public class MiningReducer extends Reducer <Text, RawDataWritable, Text, StateDa
         for(int x : stats.rooms){
             total += x;
             sumTotal += (numRooms * x);
+            numRooms ++;
         }
 
         return (float) sumTotal / total;
