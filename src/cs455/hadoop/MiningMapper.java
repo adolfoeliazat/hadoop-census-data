@@ -1,11 +1,8 @@
 package cs455.hadoop;
 
-import cs455.utils.classes.StatClass;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.conf.*;
+import cs455.utils.RawDataWritable;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
-import org.apache.hadoop.util.*;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -13,7 +10,7 @@ import java.util.LinkedHashMap;
 /**
  * Created by eloza on 4/12/17.
  */
-public class MiningMapper extends Mapper <LongWritable, Text, Text, StatClass> {
+public class MiningMapper extends Mapper <LongWritable, Text, Text, RawDataWritable> {
 
     //------ Variable Info
     private int population = 0;
@@ -197,7 +194,7 @@ public class MiningMapper extends Mapper <LongWritable, Text, Text, StatClass> {
 
             }
             if(segment == 1 || segment == 2) {
-                StatClass stats = new StatClass(population, popInsideUrban, popOutsideUrban, popMale, popFemale,
+                RawDataWritable stats = new RawDataWritable(population, popInsideUrban, popOutsideUrban, popMale, popFemale,
                 ownerOccupied, renterOccupied,
                 neverMarriedMale, marriedMale, separatedMale, widowedMale,
                 neverMarriedFemale, marriedFemale, separatedFemale, widowedFemale,

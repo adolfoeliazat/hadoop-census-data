@@ -1,4 +1,4 @@
-package cs455.utils.classes;
+package cs455.utils;
 
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.io.WritableUtils;
@@ -12,58 +12,61 @@ import java.util.Map;
 /**
  * Created by eloza on 4/11/17.
  */
-public class StatClass implements Writable {
+public class RawDataWritable implements Writable {
 
     //------ Variable Info
-    private int population;
-    private int popInsideUrban;
-    private int popOutsideUrban;
-    private int popMale;
-    private int popFemale;
-    private int ownerOccupied;
-    private int renterOccupied;
+    public int population =0;
+    public int popInsideUrban =0;
+    public int popOutsideUrban=0;
+    public int popMale=0;
+    public int popFemale=0;
+    public int ownerOccupied=0;
+    public int renterOccupied=0;
 
 
     //------ Lists of Info
-    private LinkedHashMap<String, Integer> maritalStatusMale = new LinkedHashMap<>();
-    private LinkedHashMap<String, Integer> maritalStatusFemale = new LinkedHashMap<>();
+    public LinkedHashMap<String, Integer> maritalStatusMale = new LinkedHashMap<>();
+    public LinkedHashMap<String, Integer> maritalStatusFemale = new LinkedHashMap<>();
 
-    private LinkedHashMap<String, Integer> ageDemographics = new LinkedHashMap<>();
-    private LinkedHashMap<String, Integer> ageHispanicMale = new LinkedHashMap<>();
-    private LinkedHashMap<String, Integer> ageHispanicFemale = new LinkedHashMap<>();
+    public LinkedHashMap<String, Integer> ageDemographics = new LinkedHashMap<>();
+    public LinkedHashMap<String, Integer> ageHispanicMale = new LinkedHashMap<>();
+    public LinkedHashMap<String, Integer> ageHispanicFemale = new LinkedHashMap<>();
 
-    private LinkedHashMap<String, Integer> rooms = new LinkedHashMap<>();
-    private LinkedHashMap<String, Integer> urbanVRural = new LinkedHashMap<>();
-    private LinkedHashMap<String, Integer> ownValue = new LinkedHashMap<>();
-    private LinkedHashMap<String, Integer> rentContract = new LinkedHashMap<>();
+    public LinkedHashMap<String, Integer> rooms = new LinkedHashMap<>();
+    public LinkedHashMap<String, Integer> urbanVRural = new LinkedHashMap<>();
+    public LinkedHashMap<String, Integer> ownValue = new LinkedHashMap<>();
+    public LinkedHashMap<String, Integer> rentContract = new LinkedHashMap<>();
 
-    public StatClass(int population, int popInsideUrban, int popOutsideUrban, int popMale, int popFemale,
-                     int ownerOccupied, int renterOccupied,
-                     int neverMarriedMale, int marriedMale, int separatedMale, int widowedMale,
-                     int neverMarriedFemale, int marriedFemale, int separatedFemale, int widowedFemale,
-                     int aUnder1, int a1and2, int a3and4, int a5, int a6, int a7to9, int a10and11, int a12and13,
-                     int a14, int a15, int a16, int a17, int a18, int a19, int a20, int a21, int a22to24,
-                     int a25to29, int a30to34, int a35to39, int a40to44, int a45to49, int a50to54, int a55to59,
-                     int a60and61, int a62to64, int a65to69, int a70to74, int a75to79, int a80to84, int a85andUp,
-                     int hMUnder1, int hM1and2, int hM3and4, int hM5, int hM6, int hM7to9, int hM10and11, int hM12and13,
-                     int hM14, int hM15, int hM16, int hM17, int hM18, int hM19, int hM20, int hM21, int hM22to24,
-                     int hM25to29, int hM30to34, int hM35to39, int hM40to44, int hM45to49, int hM50to54, int hM55to59,
-                     int hM60and61, int hM62to64, int hM65to69, int hM70to74, int hM75to79, int hM80to84, int hM85andUp,
-                     int hFUnder1, int hF1and2, int hF3and4, int hF5, int hF6, int hF7to9, int hF10and11, int hF12and13,
-                     int hF14, int hF15, int hF16, int hF17, int hF18, int hF19, int hF20, int hF21, int hF22to24,
-                     int hF25to29, int hF30to34, int hF35to39, int hF40to44, int hF45to49, int hF50to54, int hF55to59,
-                     int hF60and61, int hF62to64, int hF65to69, int hF70to74, int hF75to79, int hF80to84, int hF85andUp,
-                     int room1, int room2, int room3, int room4, int room5, int room6, int room7, int room8, int room9,
-                     int insideUrban, int outsideUrban, int rural, int nDefined,
-                     int ownLess15000, int own15000to19999, int own20000to24999, int own25000to29999, int own30000to34999,
-                     int own35000to39999, int own40000to44999, int own45000to49999, int own50000to59999, int own60000to74999,
-                     int own75000to99999, int own100000to124999, int own125000to149999, int own150000to174999,
-                     int own175000to199999, int own200000to249999, int own250000to299999, int own300000to399999,
-                     int own400000to499999, int own500000andUp,
-                     int rentUnder100, int rent100to149, int rent150to199, int rent200to249, int rent250to299,
-                     int rent300to349, int rent350to399, int rent400to449, int rent450to499, int rent500to549,
-                     int rent550to599, int rent600to649, int rent650to699, int rent700to749, int rent750to999,
-                     int rent1000andUp){
+
+    public RawDataWritable() {}
+
+    public RawDataWritable(int population, int popInsideUrban, int popOutsideUrban, int popMale, int popFemale,
+                           int ownerOccupied, int renterOccupied,
+                           int neverMarriedMale, int marriedMale, int separatedMale, int widowedMale,
+                           int neverMarriedFemale, int marriedFemale, int separatedFemale, int widowedFemale,
+                           int aUnder1, int a1and2, int a3and4, int a5, int a6, int a7to9, int a10and11, int a12and13,
+                           int a14, int a15, int a16, int a17, int a18, int a19, int a20, int a21, int a22to24,
+                           int a25to29, int a30to34, int a35to39, int a40to44, int a45to49, int a50to54, int a55to59,
+                           int a60and61, int a62to64, int a65to69, int a70to74, int a75to79, int a80to84, int a85andUp,
+                           int hMUnder1, int hM1and2, int hM3and4, int hM5, int hM6, int hM7to9, int hM10and11, int hM12and13,
+                           int hM14, int hM15, int hM16, int hM17, int hM18, int hM19, int hM20, int hM21, int hM22to24,
+                           int hM25to29, int hM30to34, int hM35to39, int hM40to44, int hM45to49, int hM50to54, int hM55to59,
+                           int hM60and61, int hM62to64, int hM65to69, int hM70to74, int hM75to79, int hM80to84, int hM85andUp,
+                           int hFUnder1, int hF1and2, int hF3and4, int hF5, int hF6, int hF7to9, int hF10and11, int hF12and13,
+                           int hF14, int hF15, int hF16, int hF17, int hF18, int hF19, int hF20, int hF21, int hF22to24,
+                           int hF25to29, int hF30to34, int hF35to39, int hF40to44, int hF45to49, int hF50to54, int hF55to59,
+                           int hF60and61, int hF62to64, int hF65to69, int hF70to74, int hF75to79, int hF80to84, int hF85andUp,
+                           int room1, int room2, int room3, int room4, int room5, int room6, int room7, int room8, int room9,
+                           int insideUrban, int outsideUrban, int rural, int nDefined,
+                           int ownLess15000, int own15000to19999, int own20000to24999, int own25000to29999, int own30000to34999,
+                           int own35000to39999, int own40000to44999, int own45000to49999, int own50000to59999, int own60000to74999,
+                           int own75000to99999, int own100000to124999, int own125000to149999, int own150000to174999,
+                           int own175000to199999, int own200000to249999, int own250000to299999, int own300000to399999,
+                           int own400000to499999, int own500000andUp,
+                           int rentUnder100, int rent100to149, int rent150to199, int rent200to249, int rent250to299,
+                           int rent300to349, int rent350to399, int rent400to449, int rent450to499, int rent500to549,
+                           int rent550to599, int rent600to649, int rent650to699, int rent700to749, int rent750to999,
+                           int rent1000andUp){
 
         this.population = population; this.popInsideUrban = popInsideUrban; this.popOutsideUrban = popOutsideUrban;
         this.popMale = popMale; this.popFemale = popFemale; this.ownerOccupied = ownerOccupied; this.renterOccupied = renterOccupied;
@@ -205,11 +208,11 @@ public class StatClass implements Writable {
     private void readMap(Map map, int iterations, DataInput in) throws IOException {
         int i = 0;
 
-        do{
+        while(i < iterations){
             String kk = WritableUtils.readString(in); Integer vv = in.readInt();
             maritalStatusMale.put(kk, vv);
             i++;
-        } while(i < iterations);
+        }
     }
 
     @Override
@@ -272,4 +275,57 @@ public class StatClass implements Writable {
         return sb.toString();
 
     }
+
+    public void merge(RawDataWritable other){
+        this.population += other.population; this.popInsideUrban += other.popInsideUrban; this.popOutsideUrban += other.popOutsideUrban;
+        this.popMale += other.popMale; this.popFemale += other.popFemale; this.ownerOccupied += other.ownerOccupied;
+        this.renterOccupied += other.renterOccupied;
+
+        for(Map.Entry<String, Integer> entry : maritalStatusMale.entrySet()){
+            String key = entry.getKey();
+            entry.setValue(entry.getValue() + other.maritalStatusMale.get(key));
+        }
+
+        for(Map.Entry<String, Integer> entry : maritalStatusFemale.entrySet()){
+            String key = entry.getKey();
+            entry.setValue(entry.getValue() + other.maritalStatusFemale.get(key));
+        }
+
+        for(Map.Entry<String, Integer> entry : ageDemographics.entrySet()){
+            String key = entry.getKey();
+            entry.setValue(entry.getValue() + other.ageDemographics.get(key));
+        }
+
+        for(Map.Entry<String, Integer> entry : ageHispanicMale.entrySet()){
+            String key = entry.getKey();
+            entry.setValue(entry.getValue() + other.ageHispanicMale.get(key));
+        }
+
+        for(Map.Entry<String, Integer> entry : ageHispanicFemale.entrySet()){
+            String key = entry.getKey();
+            entry.setValue(entry.getValue() + other.ageHispanicFemale.get(key));
+        }
+
+        for(Map.Entry<String, Integer> entry : rooms.entrySet()){
+            String key = entry.getKey();
+            entry.setValue(entry.getValue() + other.rooms.get(key));
+        }
+
+        for(Map.Entry<String, Integer> entry : urbanVRural.entrySet()){
+            String key = entry.getKey();
+            entry.setValue(entry.getValue() + other.rooms.get(key));
+        }
+
+        for(Map.Entry<String, Integer> entry : ownValue.entrySet()){
+            String key = entry.getKey();
+            entry.setValue(entry.getValue() + other.ownValue.get(key));
+        }
+
+        for(Map.Entry<String, Integer> entry : rentContract.entrySet()){
+            String key = entry.getKey();
+            entry.setValue(entry.getValue() + other.rentContract.get(key));
+        }
+    }
+
+
 }
