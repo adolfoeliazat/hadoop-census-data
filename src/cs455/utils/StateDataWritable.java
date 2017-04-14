@@ -90,30 +90,30 @@ public class StateDataWritable implements Writable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Rent vs. Own Demographics:" + "\n");
-        sb.append("\t" + "Percent Owner Occupied: " + rentVOwned[0] + "%\n");
-        sb.append("\t" + "Percent Renter Occupied: " + rentVOwned[1] + "%\n");
+        sb.append("\tRent vs. Own Demographics:" + "\n");
+        sb.append("\t\t" + "Percent Owner Occupied: " + rentVOwned[0] + "%\n");
+        sb.append("\t\t" + "Percent Renter Occupied: " + rentVOwned[1] + "%\n");
 
-        sb.append("Never Married Population Statistics:" + "\n");
-        sb.append("\t" + "Male Never Married: " + marriedVNmarried[0] + "%\n");
-        sb.append("\t" + "Female Never Married: " + marriedVNmarried[1] + "%\n");
+        sb.append("\tNever Married Population Statistics:" + "\n");
+        sb.append("\t\t" + "Male Never Married: " + marriedVNmarried[0] + "%\n");
+        sb.append("\t\t" + "Female Never Married: " + marriedVNmarried[1] + "%\n");
 
-        sb.append("Hispanic Age Demographics:" + "\n");
-        sb.append("\t" + "Male 18 and Under: " + marriedVNmarried[0] + "%\n");
-        sb.append("\t" + "Male 19 to 29: " + marriedVNmarried[0] + "%\n");
-        sb.append("\t" + "Male 30 to 39: " + marriedVNmarried[0] + "%\n");
-        sb.append("\t" + "Female 18 and Under: " + marriedVNmarried[1] + "%\n");
-        sb.append("\t" + "Female 19 to 29: " + marriedVNmarried[1] + "%\n");
-        sb.append("\t" + "Female 30 to 39: " + marriedVNmarried[1] + "%\n");
+        sb.append("\tHispanic Age Demographics:" + "\n");
+        sb.append("\t\t" + "Male 18 and Under: " + marriedVNmarried[0] + "%\n");
+        sb.append("\t\t" + "Male 19 to 29: " + marriedVNmarried[0] + "%\n");
+        sb.append("\t\t" + "Male 30 to 39: " + marriedVNmarried[0] + "%\n");
+        sb.append("\t\t" + "Female 18 and Under: " + marriedVNmarried[1] + "%\n");
+        sb.append("\t\t" + "Female 19 to 29: " + marriedVNmarried[1] + "%\n");
+        sb.append("\t\t" + "Female 30 to 39: " + marriedVNmarried[1] + "%\n");
 
-        sb.append("Urban vs Rural Demographics:" + "\n");
-        sb.append("\t" + "Percent Urban Households: " + ruralVUrban[0] + "%\n");
-        sb.append("\t" + "Percent Rural Households: " + ruralVUrban[1] + "%\n");
+        sb.append("\tUrban vs Rural Demographics:" + "\n");
+        sb.append("\t\t" + "Percent Urban Households: " + ruralVUrban[0] + "%\n");
+        sb.append("\t\t" + "Percent Rural Households: " + ruralVUrban[1] + "%\n");
 
-        sb.append("Median Value of House Occupied by Owner: " + medianOwnValue + "\n");
-        sb.append("Median Contract of House Occupied by Renter: " + medianRentContract + "\n");
-        sb.append("Average Number of Rooms per House: " + aveRooms + "\n");
-        sb.append("Percent Elderly People: " + percentElderly + "%\n");
+        sb.append("\tMedian Value of House Occupied by Owner: " + medianOwnValue + "\n");
+        sb.append("\t\tMedian Contract of House Occupied by Renter: " + medianRentContract + "\n");
+        sb.append("\t\tAverage Number of Rooms per House: " + aveRooms + "\n");
+        sb.append("\t\tPercent Elderly People: " + percentElderly + "%\n");
 
         return sb.toString();
 
