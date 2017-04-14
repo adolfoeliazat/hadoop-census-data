@@ -42,7 +42,7 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
         int roomIndex = (int) Math.ceil((double) aveRooms.size() * (0.95));
         System.out.println("ROOM INDEX: " +roomIndex);
         System.out.println("AVE ROOM SIZE: " + aveRooms.size());
-        aveRooms95Perc = aveRooms.get(roomIndex);
+        aveRooms95Perc = aveRooms.get(roomIndex - 1);
 
         ReportingWritable answ = new ReportingWritable (statesData, aveRooms95Perc, mostElderlyState);
         context.write(new Text("USA"), answ);

@@ -20,11 +20,13 @@ public class StateDataWritable implements Writable {
     public String medianRentContract ="";
     public float aveRooms = 0;
     public float percentElderly = 0;
+    public String state = "";
 
     public StateDataWritable(){}
 
     public StateDataWritable (float[] rentVOwned, float[] marriedVNmarried, float[] hispanicAge, float[] ruralVUrban,
-                              String medianOwnValue, String medianRentContract, float aveRooms, float percentElderly) {
+                              String medianOwnValue, String medianRentContract, float aveRooms, float percentElderly,
+                              String state) {
 
         this.rentVOwned[0] = rentVOwned[0]; this.rentVOwned[1] = rentVOwned[1];
 
@@ -39,6 +41,7 @@ public class StateDataWritable implements Writable {
         this.medianRentContract = medianRentContract;
         this.aveRooms = aveRooms;
         this.percentElderly = percentElderly;
+        this.state = state;
 
     }
 
@@ -60,6 +63,7 @@ public class StateDataWritable implements Writable {
         WritableUtils.writeString(out, medianRentContract);
         out.writeFloat(aveRooms);
         out.writeFloat(percentElderly);
+        WritableUtils.writeString(out, state);
     }
 
     @Override
@@ -84,6 +88,7 @@ public class StateDataWritable implements Writable {
         medianRentContract = WritableUtils.readString(in);
         aveRooms = in.readFloat();
         percentElderly = in.readFloat();
+        state = WritableUtils.readString(in);
     }
 
     @Override
@@ -91,13 +96,14 @@ public class StateDataWritable implements Writable {
         String val = rentVOwned[0] + "," + rentVOwned[1] + "," + marriedVNmarried[0] + "," + marriedVNmarried[1] + "," +
                 hispanicAge[0] + "," + hispanicAge[1] + "," +hispanicAge[2] + "," +hispanicAge[3] + "," +hispanicAge[4] + "," +hispanicAge[5] + "," +
                 ruralVUrban[0] + "," + ruralVUrban[1] + "," + medianOwnValue + "," + medianRentContract + "," + aveRooms + "," +
-                percentElderly;
+                percentElderly + "," + state;
         return val;
 
     }
 
     public void toString(StringBuilder sb) {
 
+        sb.append("\t\tState: " + state +"\n");
         sb.append("\t\tRent vs. Own Demographics:" + "\n");
         sb.append("\t\t\t" + "Percent Owner Occupied: " + rentVOwned[0] + "%\n");
         sb.append("\t\t\t" + "Percent Renter Occupied: " + rentVOwned[1] + "%\n");

@@ -47,11 +47,11 @@ public class ReportingMapper extends Mapper <Text, Text, Text, StateDataWritable
         percentElderly = Float.parseFloat(stateValues[15]);
 
         StateDataWritable stateInfo = new StateDataWritable (rentVOwned, marriedVNmarried, hispanicAge, ruralVUrban,
-                medianOwnValue, medianRentContract, aveRooms, percentElderly);
+                medianOwnValue, medianRentContract, aveRooms, percentElderly, state);
 
         System.out.println(state);
 
-        context.write(key, stateInfo);
+        context.write(new Text("USA"), stateInfo);
 
 
 

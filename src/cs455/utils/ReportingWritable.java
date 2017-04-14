@@ -70,8 +70,9 @@ public class ReportingWritable implements Writable{
             medianRentContract = WritableUtils.readString(in);
             aveRooms = in.readFloat();
             percentElderly = in.readFloat();
+            state = WritableUtils.readString(in);
             StateDataWritable statD = new StateDataWritable(rentVOwned, marriedVNmarried, hispanicAge, ruralVUrban, medianOwnValue,
-                    medianRentContract, aveRooms, percentElderly);
+                    medianRentContract, aveRooms, percentElderly, state);
             statesData.put(state, statD);
             si--;
         }
