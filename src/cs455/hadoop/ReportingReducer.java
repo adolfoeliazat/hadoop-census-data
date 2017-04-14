@@ -31,12 +31,15 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
             System.out.println("THE VALUEIS:==================:");
             System.out.println(value.toString());
             String kk = value.state;
+            System.out.println(kk);
+            System.out.println(value.toString());
             statesData.put(kk, value);
             if (value.percentElderly > maxValue){
                 maxValue = value.percentElderly;
                 mostElderlyState = kk;
             }
             aveRooms.add(value.aveRooms);
+            System.out.println(statesData.get(kk).toString());
         }
 
         Collections.sort(aveRooms);
