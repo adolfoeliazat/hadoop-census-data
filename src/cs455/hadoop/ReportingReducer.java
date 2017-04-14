@@ -28,6 +28,7 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
         List<Float> aveRooms = new ArrayList<Float>();
 
         for (StateDataWritable value : values) {
+            System.out.println("THE VALUEIS:==================:");
             System.out.println(value.toString());
             String kk = key.toString();
             statesData.put(kk, value);

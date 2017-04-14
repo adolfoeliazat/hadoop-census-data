@@ -25,7 +25,7 @@ public class ReportingMapper extends Mapper <Text, Text, Text, StateDataWritable
     public void map(Text key, Text value, Mapper.Context context)
             throws IOException, InterruptedException {
 
-        String state = value.toString();
+        String state = key.toString();
         String line = value.toString();
         String[] stateValues = line.split(",");
 
