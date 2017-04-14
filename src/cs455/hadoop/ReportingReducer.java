@@ -34,6 +34,12 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
             System.out.println(kk);
             System.out.println(value.toString());
             statesData.put(kk, value);
+            StringBuilder sb1 = new StringBuilder();
+            for (Map.Entry<String,StateDataWritable> entry : statesData.entrySet()){
+                sb1.append("The Key is: " + entry.getKey() + "\n");
+                sb1.append("The State is: " + entry.getValue().state + "\n");
+            }
+            System.out.println(sb1.toString());
             if (value.percentElderly > maxValue){
                 maxValue = value.percentElderly;
                 mostElderlyState = kk;
