@@ -18,6 +18,7 @@ import java.util.*;
 public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, ReportingWritable>{
 
     Map<String, StateDataWritable> statesData = new LinkedHashMap<>();
+    ArrayList<StateDataWritable> sDArr = new ArrayList<>();
     float aveRooms95Perc = 0;
     String mostElderlyState = "NULL";
 
@@ -29,9 +30,14 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
             System.out.println(stateValue.toString());
             String hashKey = stateValue.state;
             statesData.putIfAbsent(hashKey, stateValue);
+            sDArr.add(stateValue);
         }
         for(Map.Entry<String, StateDataWritable> entry : statesData.entrySet()){
             System.out.println("The Key is: " + entry.getKey() + "\t The Value is: " + entry.getValue());
+        }
+
+        for(StateDataWritable entry:sDArr){
+            System.out.println(entry);
         }
 
         ReportingWritable answ = new ReportingWritable (statesData, aveRooms95Perc, mostElderlyState);
