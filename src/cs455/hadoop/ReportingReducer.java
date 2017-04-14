@@ -30,7 +30,7 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
         for (StateDataWritable value : values) {
             System.out.println("THE VALUEIS:==================:");
             System.out.println(value.toString());
-            String kk = key.toString();
+            String kk = value.state;
             statesData.put(kk, value);
             if (value.percentElderly > maxValue){
                 maxValue = value.percentElderly;
