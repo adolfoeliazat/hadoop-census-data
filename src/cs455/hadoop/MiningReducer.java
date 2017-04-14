@@ -111,7 +111,7 @@ public class MiningReducer extends Reducer <Text, RawDataWritable, Text, StateDa
         float q8answer = question8();
 
         StateDataWritable q1to6 = new StateDataWritable(q1Answers, q2Answers, q3Answers, q4Answers, q5Answer, q6Answer,
-                q7answer, q8answer);
+                q7answer, q8answer, key.toString());
 
         context.write(key, q1to6);
     }
