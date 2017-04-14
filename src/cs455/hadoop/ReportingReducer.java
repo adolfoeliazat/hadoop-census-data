@@ -6,6 +6,7 @@ import cs455.utils.StateWritable;
 
 import cs455.utils.RawDataWritable;
 import cs455.utils.StateDataWritable;
+import org.apache.hadoop.fs.Stat;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
 
@@ -29,8 +30,10 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
         for(StateDataWritable stateValue : values){
             System.out.println(stateValue.toString());
             String hashKey = stateValue.state;
+            StateDataWritable tempThing = new StateDataWritable(stateValue.rentVOwned, stateValue.marriedVNmarried, stateValue.hispanicAge, stateValue.ruralVUrban,
+                    stateValue.medianOwnValue, stateValue.medianRentContract, stateValue.aveRooms, stateValue.percentElderly, stateValue.state);
             //statesData.putIfAbsent(hashKey, stateValue);
-            sDArr.add(stateValue);
+            sDArr.add(tempThing);
         }
         for(Map.Entry<String, StateDataWritable> entry : statesData.entrySet()){
             System.out.println("The Key is: " + entry.getKey() + "\t The Value is: " + entry.getValue());
