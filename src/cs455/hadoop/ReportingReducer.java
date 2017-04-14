@@ -42,6 +42,14 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
             System.out.println(statesData.get(kk).toString());
         }
 
+        System.out.println("WE ARE GETTIN To the bootm===========");
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String,StateDataWritable> entry : statesData.entrySet()){
+            sb.append("The Key is: " + entry.getKey() + "\n");
+            sb.append("The State is: " + entry.getValue().state + "\n");
+        }
+        System.out.println(sb.toString());
+
         Collections.sort(aveRooms);
         int roomIndex = (int) Math.ceil((double) aveRooms.size() * (0.95));
         System.out.println("ROOM INDEX: " +roomIndex);
