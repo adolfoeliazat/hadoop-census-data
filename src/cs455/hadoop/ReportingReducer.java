@@ -33,6 +33,14 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
             String kk = value.state;
             System.out.println(kk);
             System.out.println(value.toString());
+            System.out.println("Before");
+            StringBuilder sb2 = new StringBuilder();
+            for (Map.Entry<String,StateDataWritable> entry : statesData.entrySet()){
+                sb2.append("The Key is: " + entry.getKey() + "\n");
+                sb2.append("The State is: " + entry.getValue().state + "\n");
+            }
+            System.out.println(sb2.toString());
+
             statesData.put(kk, value);
             StringBuilder sb1 = new StringBuilder();
             for (Map.Entry<String,StateDataWritable> entry : statesData.entrySet()){
