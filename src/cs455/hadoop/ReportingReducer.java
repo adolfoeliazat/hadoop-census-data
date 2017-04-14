@@ -27,6 +27,11 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
 
         for(StateDataWritable stateValue : values){
             System.out.println(stateValue.toString());
+            String hashKey = stateValue.state;
+            statesData.putIfAbsent(hashKey, stateValue);
+        }
+        for(Map.Entry<String, StateDataWritable> entry : statesData.entrySet()){
+            System.out.println("The Key is: " + entry.getKey() + "\t The Value is: " + entry.getValue());
         }
 
         ReportingWritable answ = new ReportingWritable (statesData, aveRooms95Perc, mostElderlyState);

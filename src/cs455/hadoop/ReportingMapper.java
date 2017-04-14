@@ -49,7 +49,6 @@ public class ReportingMapper extends Mapper <Text, Text, Text, StateDataWritable
         StateDataWritable stateInfo = new StateDataWritable (rentVOwned, marriedVNmarried, hispanicAge, ruralVUrban,
                 medianOwnValue, medianRentContract, aveRooms, percentElderly, state);
 
-        System.out.println(state);
 
         context.write(new Text("USA"), stateInfo);
 
