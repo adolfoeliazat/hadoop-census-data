@@ -29,7 +29,7 @@ public class ReportingReducer extends Reducer <Text, StateDataWritable, Text, Re
         for(StateDataWritable stateValue : values){
             System.out.println(stateValue.toString());
             String hashKey = stateValue.state;
-            statesData.putIfAbsent(hashKey, stateValue);
+            //statesData.putIfAbsent(hashKey, stateValue);
             sDArr.add(stateValue);
         }
         for(Map.Entry<String, StateDataWritable> entry : statesData.entrySet()){

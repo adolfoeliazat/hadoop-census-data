@@ -45,6 +45,7 @@ public class ReportingMapper extends Mapper <Text, Text, Text, StateDataWritable
         medianRentContract = stateValues[13];
         aveRooms = Float.parseFloat(stateValues[14]);
         percentElderly = Float.parseFloat(stateValues[15]);
+        String stateTemp = stateValues[16];
 
         StateDataWritable stateInfo = new StateDataWritable (rentVOwned, marriedVNmarried, hispanicAge, ruralVUrban,
                 medianOwnValue, medianRentContract, aveRooms, percentElderly, state);
